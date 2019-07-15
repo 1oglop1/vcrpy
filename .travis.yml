@@ -1,5 +1,6 @@
 language: python
 before_install: openssl version
+dist: xenial
 env:
   global:
     - secure: AifoKzwhjV94cmcQZrdQmqRu/9rkZZvWpwBv1daeAQpLOKFPGsOm3D+x2cSw9+iCfkgDZDfqQVv1kCaFVxTll8v8jTq5SJdqEY0NmGWbj/UkNtShh609oRDsuzLxAEwtVKYjf/h8K2BRea+bl1tGkwZ2vtmYS6dxNlAijjWOfds=
@@ -16,26 +17,20 @@ matrix:
   include:
     - env: TOX_SUFFIX="flakes"
       python: 3.7
-      dist: xenial
     - env: TOX_SUFFIX="requests"
       python: 3.7
-      dist: xenial
     - env: TOX_SUFFIX="httplib2"
       python: 3.7
-      dist: xenial
     - env: TOX_SUFFIX="urllib3"
       python: 3.7
-      dist: xenial
     - env: TOX_SUFFIX="tornado4"
       python: 3.7
-      dist: xenial
     - env: TOX_SUFFIX="aiohttp"
       python: 3.7
-      dist: xenial
   allow_failures:
     - env: TOX_SUFFIX="boto3"
     - env: TOX_SUFFIX="aiohttp"
-      python: "pypy3.5-5.9.0"
+      python: pypy3
   exclude:
     # Only run flakes on a single Python 2.x and a single 3.x
     - env: TOX_SUFFIX="flakes"
@@ -43,17 +38,17 @@ matrix:
     - env: TOX_SUFFIX="flakes"
       python: pypy
     - env: TOX_SUFFIX="flakes"
-      python: "pypy3.5-5.9.0"
+      python: pypy3
     - env: TOX_SUFFIX="aiohttp"
       python: 2.7
     - env: TOX_SUFFIX="aiohttp"
       python: pypy
 python:
-- 2.7
-- 3.5
-- 3.6
+- "2.7"
+- "3.5"
+- "3.6"
 - pypy
-- "pypy3.5-5.9.0"
+- pypy3
 install:
 - pip install tox-travis
 - if [[ $TOX_SUFFIX != 'flakes' ]]; then python setup.py install ; fi
